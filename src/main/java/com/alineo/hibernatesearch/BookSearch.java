@@ -3,7 +3,7 @@ package com.alineo.hibernatesearch;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
@@ -13,12 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookSearch {
 
-    final EntityManager entityManager;
-
-    public BookSearch(final EntityManagerFactory entityManagerFactory) {
-        this.entityManager = entityManagerFactory.createEntityManager();
-
-    }
+    @PersistenceContext
+    EntityManager entityManager;
 
     public List<Book> getByTitle(String text) {
         SearchSession searchSession = Search.session(entityManager);
